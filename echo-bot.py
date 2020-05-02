@@ -1,6 +1,10 @@
+import os
+
 from aiogram import Bot, Dispatcher, executor, types
 
-API_TOKEN = '1258774903:AAF4hMnM3bYYEQ0bgeodVw7Lf75FIiUUFIA'
+API_TOKEN = os.environ['API_TOKEN']
+
+predicts = {'Новосибирская область': '800'}
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
@@ -13,7 +17,7 @@ async def send_welcome(message: types.Message):
 
 @dp.message_handler()
 async def echo(message: types.Message):
-    await message.answer(message.text)
+    await message.answer(predicts.get(message.text))
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
