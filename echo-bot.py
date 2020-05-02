@@ -16,7 +16,7 @@ async def send_welcome(message: types.Message):
 
 
 @dp.message_handler(commands=['switch'])
-def switch(message: types.Message):
+async def switch(message: types.Message):
     markup = types.InlineKeyboardMarkup()
     switch_button = types.InlineKeyboardButton(text='Try', switch_inline_query='Telegram')
     markup.add(switch_button)
