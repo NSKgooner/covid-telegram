@@ -2,10 +2,10 @@ import os
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
-from aiogram.types import ContentType, Message, ParseMode
+from aiogram.types import CallbackQuery, ContentType, Message, ParseMode
 from aiogram.utils.markdown import bold, text
 
-from keyboards import greet_kb
+from keyboards import greet_kb, inline_kb
 
 API_TOKEN = os.environ['API_TOKEN']
 
@@ -27,6 +27,12 @@ async def handler(message: Message):
         await message.answer(predicts[message.text])
     except KeyError:
         await message.answer('Привет!\nИспользуй /help, чтобы узнать список доступных команд!')
+
+
+@dp.callback_query_handler(func=lambda c: c.data == 'button1')
+async def process_callback_button1(callback_query: CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id, 'Нажата кнопка!')
 
 
 @dp.message_handler(content_types=ContentType.ANY)
