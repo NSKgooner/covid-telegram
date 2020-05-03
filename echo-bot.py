@@ -30,7 +30,7 @@ async def handler(message: Message):
 
 
 @dp.message_handler(commands=['button'])
-async def send_welcome(message: Message):
+async def send_button(message: Message):
     await message.reply('Первая инлайн кнопка', reply_markup=inline_kb)
 
 
