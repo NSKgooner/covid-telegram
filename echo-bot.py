@@ -29,6 +29,11 @@ async def handler(message: Message):
         await message.answer('Привет!\nИспользуй /help, чтобы узнать список доступных команд!')
 
 
+@dp.message_handler(commands=['button'])
+async def send_welcome(message: Message):
+    await message.reply('Первая инлайн кнопка', reply_markup=inline_kb)
+
+
 @dp.callback_query_handler(func=lambda c: c.data == 'button1')
 async def process_callback_button1(callback_query: CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
