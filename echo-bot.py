@@ -60,6 +60,6 @@ if __name__ == '__main__':
         on_startup=on_startup,
         on_shutdown=on_shutdown,
         skip_updates=True,
-        host='165.22.73.155',
+        host='http://165.22.73.155',
         port=8080
     )
