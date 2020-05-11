@@ -2,7 +2,7 @@ import os
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
-from aiogram.types import ContentType, Message, ParseMode
+from aiogram.types import CallbackQuery, ContentType, Message, ParseMode
 from aiogram.utils.markdown import bold, text
 
 from keyboards import hello_kb
@@ -23,6 +23,12 @@ async def send_welcome(message: Message):
 @dp.message_handler(commands=['button_yes'])
 async def send_button(message: Message):
     await message.reply('Введи свои имя и фамилию')
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button_yes')
+async def process_callback_button1(callback_query: CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id, 'Введи свои имя и фамилию')
 
 
 @dp.message_handler()
