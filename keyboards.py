@@ -3,7 +3,6 @@ from aiogram.types import (
     InlineKeyboardMarkup,
     KeyboardButton,
     ReplyKeyboardMarkup,
-    ReplyKeyboardRemove
 )
 
 button_hi = KeyboardButton('Привет!')

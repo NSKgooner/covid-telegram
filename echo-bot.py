@@ -34,7 +34,7 @@ async def send_button(message: Message):
     await message.reply('Первая инлайн кнопка', reply_markup=inline_kb)
 
 
-@dp.callback_query_handler(func=lambda c: c.data == 'button1')
+@dp.callback_query_handler(lambda c: c.data == 'button1')
 async def process_callback_button1(callback_query: CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     await bot.send_message(callback_query.from_user.id, 'Нажата кнопка!')
