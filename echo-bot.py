@@ -2,7 +2,7 @@ import os
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
-from aiogram.types import CallbackQuery, ContentType, Message, ParseMode
+from aiogram.types import ContentType, Message, ParseMode
 from aiogram.utils.markdown import bold, text
 
 from keyboards import hello_kb
