@@ -45,5 +45,21 @@ async def unknown_message(message: Message):
     await message.answer(message_text, parse_mode=ParseMode.MARKDOWN)
 
 
+async def on_startup(dp):
+    await bot.set_webhook('/')
+
+
+async def on_shutdown(dp):
+    await bot.delete_webhook()
+
+
 if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
+    executor.start_webhook(
+        dp,
+        webhook_path='/',
+        on_startup=on_startup,
+        on_shutdown=on_shutdown,
+        skip_updates=True,
+        host='165.22.73.155',
+        port=8080
+    )
