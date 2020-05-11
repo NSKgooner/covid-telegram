@@ -5,13 +5,10 @@ from aiogram.types import (
     ReplyKeyboardMarkup,
 )
 
-button_hi = KeyboardButton('Привет!')
-button_help = KeyboardButton('Помочь?')
 
-inline_button = InlineKeyboardButton('Первая кнопка!', callback_data='button1')
+button_yes = InlineKeyboardButton('Участвую!', callback_data='button1_yes')
 
 greet_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-greet_kb.add(button_hi)
-greet_kb.add(button_help)
+greet_kb.add(button_yes)
 
-inline_kb = InlineKeyboardMarkup().add(inline_button)
+hello_kb = InlineKeyboardMarkup().add(button_yes)
