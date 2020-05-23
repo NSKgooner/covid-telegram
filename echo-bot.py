@@ -5,6 +5,7 @@ from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.types import CallbackQuery, ContentType, Message, ParseMode
 from aiogram.utils.markdown import bold, text
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from keyboards import hello_kb
 from texts import HELLO_TEXT
@@ -51,3 +52,6 @@ async def unknown_message(message: Message):
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
+    sched = AsyncIOScheduler()
+    sched.add_job(lambda: sched.print_jobs(), 'interval', seconds=5)
+    sched.start()
