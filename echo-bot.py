@@ -33,7 +33,7 @@ async def send_tomorrow(message: Message):
 
 
 @dp.callback_query_handler(lambda c: c.data == 'button_tomorrow')
-async def process_callback_button1(callback_query: CallbackQuery):
+async def process_callback_button_tomorrow(callback_query: CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     await asyncio.sleep(100)
     await bot.send_message(callback_query.from_user.id, 'Твой собеседник - Крючков Алексей')
