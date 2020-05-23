@@ -1,11 +1,9 @@
-import asyncio
 import os
 
 from aiogram import Bot, Dispatcher, executor
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.types import CallbackQuery, ContentType, Message, ParseMode
 from aiogram.utils.markdown import bold, text
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from keyboards import hello_kb
 from texts import HELLO_TEXT
@@ -22,11 +20,6 @@ async def send_welcome(message: Message):
     await message.reply(HELLO_TEXT, reply_markup=hello_kb)
 
 
-@dp.message_handler(commands=['button_yes'])
-async def send_button(message: Message):
-    await message.reply('Введи свои имя и фамилию')
-
-
 @dp.callback_query_handler(lambda c: c.data == 'button_yes')
 async def process_callback_button1(callback_query: CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
@@ -37,9 +30,6 @@ async def process_callback_button1(callback_query: CallbackQuery):
 async def handler(message: Message):
     try:
         await message.answer('Отлично, жди когда бот пришлет собеседника!')
-        await asyncio.sleep(1)
-        await message.answer('Привет!')
-
     except KeyError:
         await message.answer('Привет!\nИспользуй /help, чтобы узнать список доступных команд!')
 
@@ -52,6 +42,3 @@ async def unknown_message(message: Message):
 
 if __name__ == '__main__':
     executor.start_polling(dp, skip_updates=True)
-    sched = AsyncIOScheduler()
-    sched.add_job(lambda: sched.print_jobs(), 'interval', seconds=5)
-    sched.start()
