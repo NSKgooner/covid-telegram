@@ -1,3 +1,4 @@
+import asyncio
 import os
 
 from aiogram import Bot, Dispatcher, executor
@@ -5,7 +6,7 @@ from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.types import CallbackQuery, ContentType, Message, ParseMode
 from aiogram.utils.markdown import bold, text
 
-from keyboards import hello_kb
+from keyboards import hello_kb, tomorrow_kb
 from texts import HELLO_TEXT
 
 API_TOKEN = os.environ['API_TOKEN']
@@ -24,6 +25,18 @@ async def send_welcome(message: Message):
 async def process_callback_button1(callback_query: CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
     await bot.send_message(callback_query.from_user.id, 'Введи свои имя и фамилию')
+
+
+@dp.message_handler(commands=['test'])
+async def send_tomorrow(message: Message):
+    await message.reply('Участвуешь завтра?', reply_markup=tomorrow_kb)
+
+
+@dp.callback_query_handler(lambda c: c.data == 'button_tomorrow')
+async def process_callback_button1(callback_query: CallbackQuery):
+    await bot.answer_callback_query(callback_query.id)
+    await asyncio.sleep(100)
+    await bot.send_message(callback_query.from_user.id, 'Твой собеседник - Крючков Алексей')
 
 
 @dp.message_handler()
